@@ -31,8 +31,6 @@ async fn main() {
 
             match ai::generate_entry(&word, &api_key).await {
                 Ok(entry) => {
-                    // Print the generated word immediately
-                    println!("Word generated:");
                     println!("Word: {}", entry.word);
                     println!("English: {}", entry.translation_en);
                     let reshaper = arabic_reshaper::ArabicReshaper::default();
@@ -47,12 +45,9 @@ async fn main() {
                     
                     if let Err(e) = storage::add_word(&entry).await {
                         println!("Failed to save to Supabase: {}", e);
-                    } else {
-                        println!("Word successfully saved to Supabase.");
                     }
-                    
-                    println!("---------------------------");
-                    // Save to storage
+
+                    println!("*******************************************");
                     
                 }
                 Err(e) => {
